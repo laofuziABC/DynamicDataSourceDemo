@@ -1,0 +1,83 @@
+server:
+  port: 3777
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      first:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/shuili_test?useUnicode=true&characterEncoding=UTF-8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: root
+      second:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/shuili_shzhfy_test?useUnicode=true&characterEncoding=UTF-8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: root
+      third:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://10.168.2.12:5433/dws_shuili_shzhfy_ioc
+        username: postgres
+        password: Qwer6666
+      filters: wall,mergeStat
+      type: com.alibaba.druid.pool.DruidDataSource
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+        wall:
+          config:
+          multi-statement-allow: true
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml
+  typeAliasesPackage: com.yunpi.shuili.bean
+  global-config:
+    db-config:
+      id-type: AUTO
+      #驼峰下划线转换
+      db-column-underline: true
+      logic-delete-value: -1
+      logic-not-delete-value: 0
+    banner: false
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    jdbc-type-for-null: 'null'
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+index:
+  list: dibiaoshui_data,chuqinyangzhi_data,bengzhan_data,dixiashuishuiyuan_data,shuizha_data,shuiku_data,shuidianzhan_data,ruhehupaiwu_data,nongcungongshui_data,hehu_data,difang_data,yindiaoshui_data,guanqu_data,dixiashuishuiyuan_data,chuqinyangzhi_data,gggsqy_data,gyqysj_data,zlhl_data,zlhp_data
+  col: shuiku_name,difang_name,yindiaoshui_name,gqname,shuiyuandi_name,name,pro_name,shuidianzhan_name,company_name,dwmc,dwname,qushui_name,bengzhan_name,hdmc,hpname,paiwu_name,shuizha_name
+
+schedul:
+  variables:
+    hedao:
+      cron: 0 0 21 * * ?    #正式环境换做 0 0 21 * * ?
+      starttime: 1900-01-01 00:00:00
+    shuiku:
+      cron: 0 0 23 * * ?    #正式环境换做 0 0 23 * * ?
+      starttime: 1900-01-01 00:00:00
